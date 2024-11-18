@@ -92,10 +92,22 @@ eatToday = pd.read_sql(query, st.session_state.db)
 if len(eatToday) == 0:
     eatToday.loc[0] = [stringFromDate(selectedDay), 0, 0, 0, 0]
 eatTodayChart = pd.DataFrame({'Macro': ['TotalCarbo', 'TotalProtein', 'TotalFat'], 'Amount': [eatToday['TotalCarbo'][0]*4, eatToday['TotalProtein'][0]*4, eatToday['TotalFat'][0]*9], 'Grams': [eatToday['TotalCarbo'][0], eatToday['TotalProtein'][0], eatToday['TotalFat'][0]]})
-#col1.markdown('#### Today you ate')
+
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+if selectedDay == datetime.date.today():
+    title = "<b class='date'>Today</b>"
+elif selectedDay == datetime.date.today() - datetime.timedelta(days=1):
+    title = "<b class='date'>Yesterday</b>"
+else:
+    year, month, day = stringFromDate(selectedDay).split('/')
+    date1 =  months[int(month)] + ' ' + day
+    title = f"On <b class='date'>{date1}</b>"
 string = f"""
-    <p class="Today"> {stringFromDate(selectedDay)}: </p>
+    <p class="Today">{title} you ate: </p>
     <style>
+    .date(
+        color: #FFFF80;
+    )
     .Today(
         font-size: 2rem; 
         width: 100%; 

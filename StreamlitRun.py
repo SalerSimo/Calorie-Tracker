@@ -8,7 +8,7 @@ import os
 path = os.path.dirname(os.path.realpath(__file__))
 
 def getTable():
-    db = pyodbc.connect(rf'Driver=[Microsoft Access Driver (*.mdb, *.accdb)];DBQ= db.accdb'.replace('[', '{').replace(']', '}'))
+    db = pyodbc.connect(rf'Driver=[Microsoft Access Driver (*.mdb, *.accdb)];DBQ={path}/db.accdb'.replace('[', '{').replace(']', '}'))
     cursor = db.cursor()
     st.session_state.db = db
     st.session_state.cursor = cursor 

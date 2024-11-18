@@ -19,9 +19,25 @@ if weekDF['Num'][0] == 0:
     totCal = 0
     length = 1
 
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+year, month, day = stringFromDate(startWeek).split('/')
+date1 =  months[int(month)] + ' ' + day
+year, month, day = stringFromDate(startWeek + datetime.timedelta(days=6)).split('/')
+date2 = months[int(month)] + ' ' + day
+today = datetime.date.today()
+if today >= startWeek and today <= startWeek + datetime.timedelta(days=6):
+    title = "<b class='date'>This week</b> you ate:"
+else:
+    title = f"The week from <b class='date'>{stringFromDate(date1)}</b> to <b class='date'>{stringFromDate(date2)}</b> you ate:"
+
 string = f"""
-    <p class="Today"> The week {stringFromDate(startWeek)} - {stringFromDate(startWeek + datetime.timedelta(days=6))} you eat: </p>
+    <p class="Today"> {title} </p>
     <style>
+    .date(
+        border-radius: 5px;
+        color: #FFFF80;
+    )
     .Today(
         font-size: 2rem; 
         width: 100%; 
@@ -35,16 +51,16 @@ st.write('')
 #col1, col2 = st.columns([1, 2])
 string = f"""
     <div class="Line">
-        <div style='display: inline-block; background-color: #FFFFFF20; border-radius: 5px;'>
+        <div style='display: inline-block; background-color: #FFFFFF00; border-radius: 10px;'>
             <p class="tot"> <b> {int(totCal)} </b> </p>
             <p class="cal"> <b> KCal </b> </p>
         </div>
-        <p style='display: inline-block; font-size: 1.5rem; margin-left: 10px; margin-right: 10px;'>in <b style='font-size: 2rem'>{weekDF['Num'][0]} days</b>, averaging</p> 
-        <div style='display: inline-block; background-color: #FFFFFF20; border-radius: 5px;'>
+        <p style='display: inline-block; font-size: 1.5rem; margin-right: 20px;'>in <b style='font-size: 2rem'>{weekDF['Num'][0]} days</b>, averaging</p> 
+        <div style='display: inline-block; background-color: #FFFFFF00; border-radius: 10px;'>
             <p class='tot'><b> {int(totCal/length)} </b></p>
             <p class="cal"> <b> KCal </b></p>
         </div>
-        <p style='display: inline-block; font-size: 1.5rem; margin-left: 10px;'>per day</p> 
+        <p style='display: inline-block; font-size: 1.5rem;'>per day</p> 
     </div>
     <style>
     .tot(
@@ -52,8 +68,8 @@ string = f"""
         height: 100%; 
         display:inline-block;
         margin-bottom: 0px;
-        margin-left: 20px;
-        color: #FF4B4B;
+        margin-left: 0px;
+        color: #FFFF80;
     )
     .cal(
         font-size: 2.5rem; 
