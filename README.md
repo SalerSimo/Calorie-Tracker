@@ -2,7 +2,7 @@
 ![image](./assets/Images/coverImage.png)
 
 ## Description
-***Calorie Tracker  *** is a web application to help user track daily and weekly calories intake.
+***Calorie Tracker*** is a web application to help user track daily and weekly calories intake.
 
 ## Installation
 1. Clone the repositoy:
