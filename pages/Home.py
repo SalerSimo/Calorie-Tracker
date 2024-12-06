@@ -1,17 +1,14 @@
 import streamlit as st
-import pyodbc
 import pandas as pd
 import numpy as np
 import datetime
 import altair as alt
-from utils import utils
 from utils.utils import stringFromDate
-import os
 
 
 colors = ['#FAB600', '#00D5F5', '#FFB4D0']  #carb, protein, fat
 
-def makeBarChart(labelNames, calories, grams, column, fontSize):
+def makeBarChart(labelNames: list[str], calories: pd.Series, grams: pd.Series, column, fontSize: float):
     sum = 0
     big = calories.max()
     string=f"""
@@ -84,9 +81,6 @@ if st.session_state.button:
     st.write(val)
 
 selectedDay = st.sidebar.date_input("Select a date")
-
-#today = str(datetime.date.today()).replace('-', '/')
-#today = '2024/09/15'
 query = f"SELECT * FROM MealByDay WHERE Day = '{stringFromDate(selectedDay)}'"
 eatToday = pd.read_sql(query, st.session_state.db)
 if len(eatToday) == 0:

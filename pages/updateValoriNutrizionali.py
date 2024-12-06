@@ -18,12 +18,15 @@ pro = col3.number_input('Protein', placeholder='Protein', label_visibility='coll
 fat = col4.number_input('Fat', placeholder='Fat', label_visibility='collapsed', value=None)
 
 if st.button('insert', use_container_width=True, type='primary'):
-    query = f"SELECT COUNT(*) as count FROM ValoriNutrizionali WHERE Name = '{name}'"
-    x = pd.read_sql(query, st.session_state.db)
-    if x['count'][0] == 0:
-        query = f"INSERT INTO ValoriNutrizionali(Name, Carbo, Protein, Fat) VALUES('{name}', {carb}, {pro}, {fat})"
-        st.session_state.cursor.execute(query)
-        st.session_state.cursor.commit()
-        st.header('Inserted success')
-    else:
-        st.header('food already present!!')
+    try:
+        query = f"SELECT COUNT(*) as count FROM ValoriNutrizionali WHERE Name = '{name}'"
+        x = pd.read_sql(query, st.session_state.db)
+        if x['count'][0] == 0:
+            query = f"INSERT INTO ValoriNutrizionali(Name, Carbo, Protein, Fat) VALUES('{name}', {carb}, {pro}, {fat})"
+            st.session_state.cursor.execute(query)
+            st.session_state.cursor.commit()
+            st.header('Inserted successfully')
+        else:
+            st.header('food already present!!')
+    except:
+        st.header(':red[Invalid record]')

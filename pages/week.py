@@ -22,9 +22,9 @@ if weekDF['Num'][0] == 0:
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 year, month, day = stringFromDate(startWeek).split('/')
-date1 =  months[int(month)] + ' ' + day
+date1 =  months[int(month) - 1] + ' ' + day
 year, month, day = stringFromDate(startWeek + datetime.timedelta(days=6)).split('/')
-date2 = months[int(month)] + ' ' + day
+date2 = months[int(month) - 1] + ' ' + day
 today = datetime.date.today()
 if today >= startWeek and today <= startWeek + datetime.timedelta(days=6):
     title = "<b class='date'>This week</b> you ate:"

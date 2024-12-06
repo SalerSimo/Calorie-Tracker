@@ -8,7 +8,7 @@ import os
 path = os.path.dirname(os.path.realpath(__file__))
 
 def getTable():
-    db = pyodbc.connect(rf'Driver=[Microsoft Access Driver (*.mdb, *.accdb)];DBQ={path}/db.accdb'.replace('[', '{').replace(']', '}'))
+    db = pyodbc.connect(rf'Driver=[Microsoft Access Driver (*.mdb, *.accdb)];DBQ={path}/database/db.accdb'.replace('[', '{').replace(']', '}'))
     cursor = db.cursor()
     st.session_state.db = db
     st.session_state.cursor = cursor 
@@ -21,7 +21,7 @@ st.set_page_config(page_title="Home", layout='wide')
 string = """
     <style>
         section[data-testid="stSidebar"] {
-            width: 315px !important; # Set the width to your desired value
+            max-width: 20% !important; # Set the width to your desired value
         }
     </style>
 """
@@ -29,8 +29,8 @@ st.markdown(string, unsafe_allow_html=True)
 getTable()
 home = st.Page("pages\\Home.py", title="Home")
 newMeal = st.Page("pages\\newMeal.py", title='Add New Meal')
+update = st.Page('pages/updateValoriNutrizionali.py', title='Insert new food into database')
 ins = st.Page("pages\\inserted.py", title=" ")
 week = st.Page('pages/week.py', title=' ')
-update = st.Page('pages/updateValoriNutrizionali.py', title=' ')
 
 st.navigation([home, newMeal, ins, week, update], position="sidebar").run()

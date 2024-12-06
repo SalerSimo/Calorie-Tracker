@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 
 
-def insert(food, amounts, date, type):
+def insert(food: list[str], amounts: list[float], date: str, type: str) -> None:
     cursor = st.session_state.cursor
     MealDb = pd.read_sql("SELECT * FROM Meal", st.session_state.db)
     foodDB = pd.read_sql("SELECT * FROM ValoriNutrizionali", st.session_state.db)

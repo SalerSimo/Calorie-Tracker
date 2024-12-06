@@ -4,13 +4,11 @@ from datetime import date, timedelta
 import datetime
 import pandas as pd
 
-"""Raccoglie le principali funzioni condivise dalle varie pagine"""
-
-def DateToInt(date: str):
+def DateToInt(date: str) -> int:
     year, month, day = date.split("/")
     return int(year)*10000 + int(month)*100 + int(day)
 
-def IntToDate(number: int):
+def IntToDate(number: int) -> str:
     year = number//10000
     number = number%10000
     month = number//100
@@ -28,16 +26,8 @@ def IntToDate(number: int):
     return date
 
 def getDateFromString(string):
-
     date = datetime.datetime.strptime(string, "%Y/%m/%d").date()
-    #date = str(date).replace('-', '/')
     return date
 
-def stringFromDate(date: date):
+def stringFromDate(date: date) -> str:
     return str(date).replace('-', '/')
-
-IntToDate(DateToInt("2024/09/17"))
-
-today = "2024/09/02".replace("/", '')
-today = datetime.datetime.strptime(today, "%Y%m%d").date()
-print(today - timedelta(days=10))
